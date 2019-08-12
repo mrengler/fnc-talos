@@ -1,6 +1,6 @@
 import csv
 
-import cPickle as pickle
+import pickle
 import gzip
 from time import time
 
@@ -54,7 +54,7 @@ def split():
         train_sets = set([int(i.strip()) for i in f.readlines()])
     with open('test_ids.txt','r') as f:
         test_sets = set([int(i.strip()) for i in f.readlines()])
-    print len(train_sets), len(test_sets)
+    print(len(train_sets), len(test_sets))
     with open('train_stances.csv','r') as f:
         reader = csv.reader(f)
         reader.next()
@@ -66,7 +66,7 @@ def split():
             else:
                 test.append(l)
 
-    print len(train), len(test)
+    print(len(train), len(test))
 
     for dat, fn in zip([train, test],['train.csv','test.csv']):
         with open(fn,'wb') as f:

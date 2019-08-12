@@ -3,7 +3,7 @@ import os, string
 import time
 
 import numpy as np
-import cPickle as pickle
+import pickle
 
 import theano
 
@@ -67,7 +67,7 @@ class GoogleVec(object):
     def load(self):
         t0 = time.time()
         self.model = gensim.models.KeyedVectors.load_word2vec_format(self.path,unicode_errors='ignore', binary=True)
-        print time.time() - t0
+        print(time.time() - t0)
         for i in range(len(self.model.index2word)):
             self.vocab[self.model.index2word[i]]=i
 
@@ -101,7 +101,7 @@ if __name__ == '__main__':
     gv.load()
 
     t = ['the quick brown fox jumped over the lazy dog','the. quick, brown! fox,, !']
-    print gv.transform(t)
+    print(gv.transform(t))
 
  #   Copyright 2017 Cisco Systems, Inc.
  #

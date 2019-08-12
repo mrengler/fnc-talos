@@ -115,7 +115,7 @@ def dense(inp, n_in,n_out, act=T.nnet.relu):
     #set up theano vars, get linear output
 
     if act==T.nnet.relu:
-        print "RELU, MANUAL LRELU"
+        print("RELU, MANUAL LRELU")
         return T.nnet.relu(lin, .1), w,b
     elif act is None:
         return lin, w, b
@@ -164,17 +164,17 @@ def Train(cost=None, params=None, inputs=None, outputs=None, rho=.9, givens={}, 
         grad_updates = Adam(grads, params)
 
         for u in updates:
-            print u, updates[u]
+            print(u, updates[u])
             if isinstance(grad_updates, list):
                 grad_updates.append((u, updates[u]))
             else:
                 grad_updates[u] = updates[u]
 
 
-    print 'Build train ',
+    print('Build train ')
     t0 = time.time()
     train_model = theano.function(inputs=inputs, outputs=outputs, updates=grad_updates, givens=givens, on_unused_input='warn', profile=profile)
-    print time.time() - t0
+    print(time.time() - t0)
     return train_model
 
 def score(pred, act):
@@ -188,7 +188,7 @@ def score(pred, act):
     return s
 
 if __name__ == '__main__':
-    theano.gpuarray.use('cuda1')
+    #theano.gpuarray.use('cuda1')
     v = GoogleVec()
     v.load()
 
@@ -333,7 +333,7 @@ if __name__ == '__main__':
 
                 i+=1
                 if i%50==0:
-                    print i
+                    print(i)
         exit()
 
     best_score = 0
@@ -351,7 +351,7 @@ if __name__ == '__main__':
 
 
         if i%500==0:
-            print i, np.mean(costs), time.time() - t0
+            print(i, np.mean(costs), time.time() - t0)
             t0 = time.time()
             costs = []
 
@@ -360,7 +360,7 @@ if __name__ == '__main__':
             #if we have a new high score, save the params
             m = 0
             b = 0
-            print i, time.time() - t0
+            print(i, time.time() - t0)
             for head,body,stance in val_news.validate():
                 preds = test(head, body, stance)
                 for p, a in zip(preds, stance):
@@ -373,11 +373,11 @@ if __name__ == '__main__':
                     else:
                         wrong[p]+=1
 
-            print m, b
-            print ' '
+            print(m, b)
+            print(' ')
             t0 = time.time()
             if m>best_score:
-                print 'SAVED ---------------------------',m
+                print('SAVED ---------------------------',m)
                 best_score = m
                 with open('params.p','wb') as f:
                    pickle.dump(params, f)
